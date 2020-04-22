@@ -34,6 +34,12 @@ namespace API
                 // contains a connection called DefaultConnection 
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddCors(opt =>{
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+                });
+            });
             services.AddControllers();
         }
 
@@ -45,9 +51,15 @@ namespace API
                 app.UseDeveloperExceptionPage();
             }
 
-            // app.UseHttpsRedirection();
+
+            //the ordering of the following app. can make a difference.
 
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
+            // app.UseHttpsRedirection();
+
+            
 
             app.UseAuthorization();
 
