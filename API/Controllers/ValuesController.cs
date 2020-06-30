@@ -24,6 +24,7 @@ namespace DatingApp.API.Controllers
         // "async" should be used for long running calls to db. this puts the request on a differnt thread
         // from the task so they dont get in the way of each other
         // when returning data to list with async use .ToListAsync
+        
         [HttpGet]
         
         public async Task<ActionResult<IEnumerable<Value>>> Get()
